@@ -29,7 +29,7 @@ export class AppComponent {
         if (this.gamepadIndex !== undefined) {
           // a gamepad is connected and has an index
           this.myGamepad = navigator.getGamepads()[this.gamepadIndex];
-          this.myGamepad.buttons
+          this.myGamepad && this.myGamepad.buttons
             .map((e: any) => e.pressed)
             .forEach((isPressed: any, buttonIndex: any) => {
               if (isPressed) {

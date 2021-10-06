@@ -27,7 +27,7 @@ export class AppComponent {
       });
       setInterval(() => {
         this.myGamepad = navigator.getGamepads()[this.gamepadIndex];
-        if (this.gamepadIndex !== undefined && this.myGamepad !== null) {
+        if (this.gamepadIndex !== undefined && this.myGamepad && this.myGamepad.buttons) {
           // a gamepad is connected and has an index
           this.myGamepad.buttons
             .map((e: any) => e.pressed)

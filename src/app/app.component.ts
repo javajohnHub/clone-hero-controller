@@ -10,6 +10,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class AppComponent {
   songData: any[] = [];
   gamepadIndex = 0;
+  myGamepad: any = {};
   color = '';
   pressed = [false, false, false, false, false];
   colors = ['green', 'red', 'yellow', 'blue', 'orange'];
@@ -25,9 +26,10 @@ export class AppComponent {
         this.gamepadIndex = e.gamepad.index;
       });
       setInterval(() => {
-        if (this.gamepadIndex !== undefined && this.myGamepad && this.myGamepad.buttons.length) {
+        this.myGamepad = navigator.getGamepads()[this.gamepadIndex];
+        if (this.gamepadIndex !== undefined && this.myGamepad) {
           // a gamepad is connected and has an index
-          this.myGamepad && this.myGamepad.buttons
+          this.myGamepad.buttons
             .map((e: any) => e.pressed)
             .forEach((isPressed: any, buttonIndex: any) => {
               if (isPressed) {
@@ -53,16 +55,9 @@ export class AppComponent {
         }
       }, 5);
     }
-    
-
-    
   }
 
   trackByFn(index: number) {
     return index;
-  }
-
-  get myGamepad() {
-    return navigator.getGamepads()[this.gamepadIndex];
   }
 }

@@ -1,4 +1,4 @@
-<ng-container *ngIf="myGamepad && myGamepad.buttons && myGamepad.buttons.length; else noPad">
+<ng-container *ngIf="myGamepad && myGamepad.buttons.length; else noPad">
   <div class="container" >
     <div class="top-container">
     <ng-container *ngFor="let button of myGamepad.buttons; let i=index;trackBy: trackByFn">

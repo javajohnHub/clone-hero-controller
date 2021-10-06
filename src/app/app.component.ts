@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
-
+import { Component, Inject } from '@angular/core';
+import { PLATFORM_ID } from "@angular/core";
+import { isPlatformBrowser } from '@angular/common';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  providers: []
 })
 export class AppComponent {
   songData: any[] = [];
@@ -15,13 +17,16 @@ export class AppComponent {
   up = false;
   down = false;
   strum = false;
-  constructor() {
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {
   }
 
   ngOnInit() {
-    window.addEventListener('gamepadconnected', (e: GamepadEvent) => {
-      this.gamepadIndex = e.gamepad.index;
-    });
+    if(isPlatformBrowser(this.platformId)) {
+      window.addEventListener('gamepadconnected', (e: GamepadEvent) => {
+        this.gamepadIndex = e.gamepad.index;
+      });
+    }
+    
 
     setInterval(() => {
       if (this.gamepadIndex !== undefined) {

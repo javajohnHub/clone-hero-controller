@@ -11,7 +11,6 @@ export class AppComponent {
   songData: any[] = [];
   gamepadIndex = 0;
   color = '';
-  myGamepad: any;
   pressed = [false, false, false, false, false];
   colors = ['green', 'red', 'yellow', 'blue', 'orange'];
   up = false;
@@ -26,8 +25,7 @@ export class AppComponent {
         this.gamepadIndex = e.gamepad.index;
       });
       setInterval(() => {
-        this.myGamepad = navigator.getGamepads()[this.gamepadIndex];
-        if (this.gamepadIndex !== undefined && this.myGamepad) {
+        if (this.gamepadIndex !== undefined && this.myGamepad && this.myGamepad.buttons.length) {
           // a gamepad is connected and has an index
           this.myGamepad && this.myGamepad.buttons
             .map((e: any) => e.pressed)
@@ -62,5 +60,9 @@ export class AppComponent {
 
   trackByFn(index: number) {
     return index;
+  }
+
+  get myGamepad() {
+    return navigator.getGamepads()[this.gamepadIndex];
   }
 }

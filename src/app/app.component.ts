@@ -21,6 +21,10 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    if(navigator) {
+      this.myGamepad = navigator.getGamepads()[this.gamepadIndex];
+    }
+    
     if(isPlatformBrowser(this.platformId)) {
       window.addEventListener('gamepadconnected', (e: GamepadEvent) => {
         this.gamepadIndex = e.gamepad.index;
@@ -28,7 +32,6 @@ export class AppComponent {
       setInterval(() => {
         if (this.gamepadIndex !== undefined) {
           // a gamepad is connected and has an index
-          this.myGamepad = navigator.getGamepads()[this.gamepadIndex];
           this.myGamepad && this.myGamepad.buttons
             .map((e: any) => e.pressed)
             .forEach((isPressed: any, buttonIndex: any) => {
